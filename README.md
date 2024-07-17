@@ -11,6 +11,25 @@ Este projeto é uma aplicação de blogging dinâmica criada para professores da
 - **Containerização:** Docker
 - **CI/CD:** GitHub Actions
 
+- ## 🛠️ Funcionalidades
+
+- **GET /posts - Lista de Posts:** Permite que alunos visualizem uma lista de todos os posts disponíveis.
+- **GET /posts/:id - Leitura de Posts:** Permite que alunos leiam o conteúdo completo de um post específico.
+- **POST /posts - Criação de Postagens:** Permite que professores criem novas postagens.
+- **PUT /posts/:id - Edição de Postagens:** Permite que professores editem postagens existentes.
+- **GET /posts/admin - Listagem de Todas as Postagens:** Permite que professores vejam todas as postagens criadas.
+- **DELETE /posts/:id - Exclusão de Postagens:** Permite que professores excluam uma postagem específica.
+- **GET /posts/search - Busca de Posts:** Permite a busca de posts por palavras-chave.
+
+## 🛠️ Requisitos Técnicos
+
+- **Back-end em Node.js:** Servidor utilizando Node.js e Express.
+- **Persistência de Dados:** Banco de dados PostgreSQL.
+- **Containerização com Docker:** Uso de contêineres Docker para garantir consistência entre ambientes.
+- **Automação com GitHub Actions:** Workflows de CI/CD configurados para automação de testes e deploy.
+- **Documentação:** Documentação técnica detalhada, incluindo setup inicial e guia de uso das APIs.
+- **Cobertura de Testes:** Pelo menos 30% do código coberto por testes unitários.
+
 ## 📂 Estrutura de Diretórios
 
 ```
@@ -140,11 +159,4 @@ jobs:
       run: docker push your-docker-repo/techchallengeii-app
 ```
 
-## 📄 Atualizar Repositório GitHub
 
-1. **Faça commit e push de todas as alterações:**
-   ```bash
-   git add .
-   git commit -m "Atualizações finais e documentação"
-   git push origin main
-   ```
