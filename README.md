@@ -11,28 +11,9 @@ Este projeto é uma aplicação de blogging dinâmica criada para professores da
 - **Containerização:** Docker
 - **CI/CD:** GitHub Actions
 
-- ## 🛠️ Funcionalidades
-
-- **GET /posts - Lista de Posts:** Permite que alunos visualizem uma lista de todos os posts disponíveis.
-- **GET /posts/:id - Leitura de Posts:** Permite que alunos leiam o conteúdo completo de um post específico.
-- **POST /posts - Criação de Postagens:** Permite que professores criem novas postagens.
-- **PUT /posts/:id - Edição de Postagens:** Permite que professores editem postagens existentes.
-- **GET /posts/admin - Listagem de Todas as Postagens:** Permite que professores vejam todas as postagens criadas.
-- **DELETE /posts/:id - Exclusão de Postagens:** Permite que professores excluam uma postagem específica.
-- **GET /posts/search - Busca de Posts:** Permite a busca de posts por palavras-chave.
-
-## 🛠️ Requisitos Técnicos
-
-- **Back-end em Node.js:** Servidor utilizando Node.js e Express.
-- **Persistência de Dados:** Banco de dados PostgreSQL.
-- **Containerização com Docker:** Uso de contêineres Docker para garantir consistência entre ambientes.
-- **Automação com GitHub Actions:** Workflows de CI/CD configurados para automação de testes e deploy.
-- **Documentação:** Documentação técnica detalhada, incluindo setup inicial e guia de uso das APIs.
-- **Cobertura de Testes:** Pelo menos 30% do código coberto por testes unitários.
-
 ## 📂 Estrutura de Diretórios
 
-```
+```plaintext
 TechChallengeII/
 ├── src/
 │   ├── config/
@@ -48,17 +29,28 @@ TechChallengeII/
 │   ├── routes/
 │   │   ├── usuarioRoutes.js
 │   │   └── postagemRoutes.js
+│   ├── test/
+│   │   ├── controllers/
+│   │   │   └── postagemController.test.js
+│   │   ├── models/
+│   │   │   ├── postagemModel.test.js
+│   │   │   └── usuarioModel.test.js
 │   └── server.js
 ├── Dockerfile
 ├── docker-compose.yml
 ├── .env
 ├── .dockerignore
-└── package.json
+├── .gitignore
+├── jest.config.js
+├── package.json
+├── package-lock.json
+└── wait-for-it.sh
 ```
 
 ## 🚀 Configuração do Ambiente
 
 ### 📋 Pré-requisitos
+
 - Node.js e npm instalados
 - Docker e Docker Compose instalados
 
@@ -66,7 +58,7 @@ TechChallengeII/
 
 1. **Clone o repositório do projeto:**
    ```bash
-   git clone https://github.com/seu-usuario/TechChallengeII.git
+   git clone https://github.com/FellGMS/TechChallengeII.git
    cd TechChallengeII
    ```
 
@@ -75,51 +67,64 @@ TechChallengeII/
    JWT_SECRET=seu-segredo-aqui
    ```
 
-3. **Suba os contêineres Docker:**
+3. **Instale as dependências:**
+   ```bash
+   npm install
+   ```
+
+4. **Suba os contêineres Docker:**
    ```bash
    docker-compose up --build
+   ```
+
+5. **Execute as migrações do banco de dados:**
+   ```bash
+   npx sequelize-cli db:migrate
+   ```
+
+6. **Inicie a aplicação:**
+   ```bash
+   npm start
+   ```
+
+7. **Execute os testes:**
+   ```bash
+   npm test
    ```
 
 ## 🔗 Endpoints da API
 
 ### 🧑‍🏫 Cadastro de Usuário
 
-- **Endpoint:** `POST /api/usuarios/signup`
-- **Body:**
-  ```json
-  {
-    "nome": "Professor",
-    "email": "professor@escola.com",
-    "senha": "senha123"
-  }
-  ```
+- **POST /api/usuarios/signup**
 
 ### 🔑 Login de Usuário
 
-- **Endpoint:** `POST /api/usuarios/login`
-- **Body:**
-  ```json
-  {
-    "email": "professor@escola.com",
-    "senha": "senha123"
-  }
-  ```
+- **POST /api/usuarios/login**
 
 ### ✍️ Criação de Postagem
 
-- **Endpoint:** `POST /api/postagens`
-- **Headers:**
-  ```plaintext
-  Authorization: Bearer {token}
-  ```
-- **Body:**
-  ```json
-  {
-    "titulo": "Novo Post",
-    "conteudo": "Conteúdo do post",
-    "autor": "Professor"
-  }
-  ```
+- **POST /api/postagens**
+
+### 🔍 Busca de Postagens
+
+- **GET /api/postagens/search?pesquisa=termo**
+
+### 📰 Listar Postagens
+
+- **GET /api/postagens**
+
+### 📖 Obter Postagem por ID
+
+- **GET /api/postagens/:id**
+
+### 📝 Atualizar Postagem
+
+- **PUT /api/postagens/:id**
+
+### ❌ Deletar Postagem
+
+- **DELETE /api/postagens/:id**
 
 ## 🤖 Configuração do GitHub Actions
 
@@ -158,5 +163,3 @@ jobs:
     - name: Push Docker image
       run: docker push your-docker-repo/techchallengeii-app
 ```
-
-
